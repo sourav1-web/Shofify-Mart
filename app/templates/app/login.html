@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Login</h3>
+            <hr>
+            <form action="{% url 'login' %}" method="post" novalidate class="shadow p-5">
+                {% csrf_token %}
+                {{ form.as_p }} {# Render the form fields using Django form template tags #}
+                <small><a href="{% url 'password_reset'%}">Forgot Password ?</a></small> <br>
+                <input type="submit" class="btn btn-primary mt-4" value="Login">
+                <br>
+                <div class="text-center text-primary fw-bold">
+                    <small>New to ShoppinglyX ? <a href="{% url 'customerregistration' %}" class="text-danger">Create an Account</a></small>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

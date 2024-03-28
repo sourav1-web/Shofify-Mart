@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Buy Now{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group">
+                <a href="{% url 'orders' %}" class="list-group-item list-group-item-action active">
+                    Orders
+                </a>
+                <!-- Add more links for user navigation if needed -->
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <h3>Welcome, {{ request.user }}</h3>
+            
+            {% if order_placed %}
+            <div class="row">
+                {% for order in order_placed %}
+                <div class="col-sm-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Brand: {{ order.product.brand }}</h5>
+                            <p class="card-text">Describtion: {{ order.product.describtion }}</p>
+                            <p class="card-text">Quantity: {{ order.quantity }}</p>
+                            <div class="ms-3">
+                                <img src="{{ order.product.product_img.url }}" alt="{{ order.product }}" height="60px">
+                            </div>
+                            {% if order.status == "Accepted" %}
+                            <div class="progress mt-3">
+                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Accepted</div>
+                            </div>
+                            {% elif order.status == "packed" %}
+                            <div class="progress mt-3">
+                                <div class="progress-bar bg-info " role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">packed</div>
+                            </div>
+                            {% elif order.status == "on the way" %}
+                            <div class="progress mt-3">
+                                <div class="progress-bar bg-warning " role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">on the way</div>
+                            </div>
+                            {% elif order.status == "delivered" %}
+                            <div class="progress mt-3">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">delivered</div>
+                            </div>
+                            {% elif order.status == "cancel" %}
+                            <div class="progress mt-3">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">cancel</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info mt-3" role="alert">
+                You have no orders yet.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

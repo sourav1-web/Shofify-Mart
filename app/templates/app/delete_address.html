@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+{% block title %}Delete Address{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Delete Address</h2>
+                    <p>Are you sure you want to delete the address?</p>
+                    <p>Name: {{ address.name }}</p>
+                    <p>Locality: {{ address.locality }}</p>
+                    <p>City: {{ address.city }}</p>
+                    <p>State: {{ address.state }}</p>
+                    <p>Zipcode: {{ address.zipcode }}</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger mr-2">Delete</button>
+                        <a href="{% url 'address' %}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

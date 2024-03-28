@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Customer Registration</h3>
+            <hr>
+
+            <form action="" method="post" novalidate class="shadow p-5">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <!-- Loop through errors and display them -->
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <center><p class="mt-3">Already have an account? <a href="{% url 'login' %}" style="color: rgb(45, 181, 33);">Login here</a></p></center>
+
+            </form>
+
+            <!-- Existing User Login Link -->
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

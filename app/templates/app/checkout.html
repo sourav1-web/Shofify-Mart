@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row mt-5">
+  <div class="col-sm-6">
+    <h4>Order Summary</h4>
+    <hr>
+    {% for items in cartitems %}
+    <div class="card mb-2">
+      <div class="card-body d-flex align-items-center">
+          <div class="flex-grow-1">
+              <h5>Product: {{ items.product.brand }}</h5>
+              <p>Quantity: {{ items.quantity }}</p>
+              <p class="fw-bold">Price: {{ items.total_cost }}</p>
+          </div>
+          <div class="ms-3">
+              <img src="{{ items.product.product_img.url }}" alt="" height="80px">
+          </div>
+      </div>
+  </div>
+  
+      {% endfor %}
+      <span class="fw-bold">Total Cost: Rs-{{tot_amount}}</span><br>
+    <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+  </div>
+  <div class="col-sm-4 offset-sm-1">
+    <h4>Select Shipping Address</h4>
+    <hr>
+    <form method="GET" action="/paymentdone/">
+      {% for add in address %}
+      <div class="card">
+          <div class="card-body">
+              <h5>NAME: {{ add.name }}</h5>
+              <p>STATE: {{ add.state }}, CITY: {{ add.city }}</p>
+              <p>LOCALITY: {{ add.locality }}, Zipcode: {{ add.zipcode }}</p>
+          </div>
+      </div>
+      <div class="form-check mt-2 mb-5">
+          <input class="form-check-input" type="radio" name="custid" id="custid{{ forloop.counter }}" value="{{ add.id }}">
+          <label class="form-check-label fw-bold" for="custid{{ forloop.counter }}">Address: {{ forloop.counter }}</label>
+      </div>
+      {% endfor %}
+      <div class="text-end">
+          <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+      </div>
+  </form>
+  
+    </div>
+  </div>
+</div>
+{% endblock main-content %}

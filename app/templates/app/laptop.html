@@ -1,0 +1,31 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-3"> <!-- Adjusted margin -->
+ <div class="row">
+  <div class="col-sm-3">
+   <div class="list-group">
+    <a href="{% url 'laptop' %}" class="list-group-item list-group-item-action" aria-current="true">All laptops</a> <!-- Added space after list-group-item -->
+    <a href="{% url 'laptop' 'hp' %}" class="list-group-item list-group-item-action" aria-current="true">hp</a> <!-- Added space after list-group-item -->
+    <a href="{% url 'laptop' 'dell' %}" class="list-group-item list-group-item-action" aria-current="true">Dell</a> <!-- Added space after list-group-item -->
+   </div>
+  </div>
+  <div class="col-sm-9"> <!-- Adjusted column size -->
+   <div class="row row-cols-1 row-cols-md-4 g-4"> <!-- Adjusted grid layout -->
+    {% for product in laptops %}
+    <div class="col">
+    <a href="{% url 'product-detail' product.id %}" class="btn">
+      <img src="{{product.product_img.url}}" alt="" class="img-fluid" style="height: 150px;"> <!-- Adjusted image height -->
+      <div class="fw-bold">{{product.brand}}</div>
+      <div class="fw-bold">{{product.discount_price}}
+        <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small> <!-- Corrected typo -->
+      </div>
+     </a>
+    </div>
+    {% endfor %}
+   </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
